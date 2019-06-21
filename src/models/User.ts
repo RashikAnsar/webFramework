@@ -12,6 +12,8 @@ interface UserInfo {
   age?: number;
 }
 
+type Callback = () => void;
+
 /**
  * User class
  * @param {Object} data is object with name and age
@@ -20,6 +22,8 @@ interface UserInfo {
  * @example new User({name: 'John', age: 20})
  */
 export class User {
+  events: { [key: string]: Callback[] } = {};
+
   constructor(private data: UserInfo) {}
 
   /**
@@ -40,5 +44,17 @@ export class User {
    */
   set(update: UserInfo): void {
     Object.assign(this.data, update);
+  }
+
+  // Event-Handling
+  /**
+   * `on` is the method for adding event listener
+   * @param {string} eventName name of the event
+   * @param {function} callback callback fn()
+   */
+  on(eventName: string, callback: Callback): void {
+    const handlers = this.events[eventName] || [];
+    handlers.push(callback);
+    this.events[eventName] = handlers;
   }
 }

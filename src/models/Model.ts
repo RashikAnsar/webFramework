@@ -21,7 +21,6 @@ interface HasId {
 }
 
 export class Model<T extends HasId> {
-  // prettier-ignore
   constructor(
     private attributes: ModelAttributes<T>,
     private events: Events,

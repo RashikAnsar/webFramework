@@ -57,4 +57,16 @@ export class User {
     handlers.push(callback);
     this.events[eventName] = handlers;
   }
+
+  /**
+   * trigger method triggers the events that are listening
+   * @param {string} eventName name of the event same as in on method
+   */
+  trigger(eventName: string): void {
+    const handlers = this.events[eventName];
+    if (!handlers || handlers.length === 0) {
+      return;
+    }
+    handlers.forEach(callback => callback());
+  }
 }

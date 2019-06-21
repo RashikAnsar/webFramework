@@ -1,19 +1,16 @@
-import axios, { AxiosResponse } from 'axios';
-
-/**
- * Example based development
- *
- * @TODO refactor to reusable code.
- */
+import { Eventing } from './Eventing';
+import { Sync } from './Sync';
 
 /**
  * UserInfo type consists of name , age, id
  */
-interface UserInfo {
+export interface UserInfo {
   id?: number;
   name?: string;
   age?: number;
 }
+
+const ROOT_URL = 'http://localhost:3000/users';
 
 /**
  * User class
@@ -23,6 +20,9 @@ interface UserInfo {
  * @example new User({name: 'John', age: 20})
  */
 export class User {
+  public events: Eventing = new Eventing();
+  public sync: Sync<UserInfo> = new Sync<UserInfo>(ROOT_URL);
+
   constructor(private data: UserInfo) {}
 
   /**
@@ -46,27 +46,4 @@ export class User {
   }
 
   // Event-Handling
-
-  /**
-   * fetches the user from the db.json(server)
-   */
-  fetch(): void {
-    axios.get(`http://localhost:3000/users/${this.get('id')}`).then(
-      (response: AxiosResponse): void => {
-        this.set(response.data);
-      }
-    );
-  }
-
-  /**
-   * save user in the db.json(server)
-   */
-  save(): void {
-    const id = this.get('id');
-    if (id) {
-      axios.put(`http://localhost:3000/users/${id}`, this.data);
-    } else {
-      axios.post('http://localhost:3000/users/', this.data);
-    }
-  }
 }

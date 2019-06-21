@@ -74,7 +74,7 @@ export class User {
   }
 
   /**
-   * fetches the user from the db.json
+   * fetches the user from the db.json(server)
    */
   fetch(): void {
     axios.get(`http://localhost:3000/users/${this.get('id')}`).then(
@@ -82,5 +82,17 @@ export class User {
         this.set(response.data);
       }
     );
+  }
+
+  /**
+   * save user in the db.json(server)
+   */
+  save(): void {
+    const id = this.get('id');
+    if (id) {
+      axios.put(`http://localhost:3000/users/${id}`, this.data);
+    } else {
+      axios.post('http://localhost:3000/users/', this.data);
+    }
   }
 }

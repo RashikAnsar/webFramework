@@ -21,4 +21,18 @@ export class User {
   constructor(attrs: UserInfo) {
     this.attributes = new Attributes<UserInfo>(attrs);
   }
+
+  // Passthrough methods
+
+  get on() {
+    return this.events.on;
+  }
+
+  get trigger() {
+    return this.events.trigger;
+  }
+
+  get get() {
+    return this.attributes.get;
+  }
 }

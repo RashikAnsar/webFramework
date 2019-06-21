@@ -6,9 +6,9 @@ export class Attributes<T> {
    * @param {string} key
    * @returns {string | number}
    */
-  get<K extends keyof T>(key: K): T[K] {
+  get = <K extends keyof T>(key: K): T[K] => {
     return this.data[key];
-  }
+  };
 
   /**
    * @param {typeparam} update is Generic type

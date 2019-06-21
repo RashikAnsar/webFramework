@@ -1,7 +1,7 @@
-import { User } from '../models/User';
+import { User, UserInfo } from '../models/User';
 import { View } from './View';
 
-export class UserForm extends View {
+export class UserForm extends View<User, UserInfo> {
   eventsMap(): { [key: string]: () => void } {
     return {
       'click:.set-age': this.onSetAgeClick,

@@ -1,12 +1,13 @@
 import { User } from './models/User';
-import { Eventing } from './models/Eventing';
 
-const user = new User({ name: 'new record', age: 40 });
+const user = new User({ id: 2, name: 'newer Name', age: 43 });
 
-user.on('change', () => {
-  console.log('change');
+user.on('save', () => {
+  console.log(user);
 });
 
-console.log(user.get('name'));
+user.on('error', () => {
+  console.log(user);
+});
 
-user.trigger('change');
+user.save();

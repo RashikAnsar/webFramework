@@ -1,3 +1,5 @@
+import axios, { AxiosResponse } from 'axios';
+
 /**
  * Example based development
  *
@@ -5,9 +7,10 @@
  */
 
 /**
- * UserInfo type consists of name and age
+ * UserInfo type consists of name , age, id
  */
 interface UserInfo {
+  id?: number;
   name?: string;
   age?: number;
 }
@@ -68,5 +71,16 @@ export class User {
       return;
     }
     handlers.forEach(callback => callback());
+  }
+
+  /**
+   * fetches the user from the db.json
+   */
+  fetch(): void {
+    axios.get(`http://localhost:3000/users/${this.get('id')}`).then(
+      (response: AxiosResponse): void => {
+        this.set(response.data);
+      }
+    );
   }
 }

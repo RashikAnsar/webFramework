@@ -4,7 +4,8 @@
   "description": "web framework using typescript",
   "main": "index.js",
   "scripts": {
-    "dev": "parcel index.html"
+    "dev": "parcel index.html",
+    "dev:db": "json-server -w db.json"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
   "author": "Rashik Ansar",
   "license": "MIT",
   "devDependencies": {
+    "json-server": "^0.15.0",
     "parcel": "^1.12.3",
     "typescript": "^3.5.2"
   }
